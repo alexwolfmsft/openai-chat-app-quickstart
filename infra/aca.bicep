@@ -63,9 +63,10 @@ module app 'core/host/container-app-upsert.bicep' = {
     exists: exists
     containerAppsEnvironmentName: containerAppsEnvironmentName
     containerRegistryName: containerRegistryName
+    containerMaxReplicas: 1
     env: envWithSecret
     secrets: secrets
-    targetPort: 50505
+    targetPort: 8080
   }
 }
 
