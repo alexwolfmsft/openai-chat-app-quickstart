@@ -23,11 +23,19 @@ since the local app needs credentials for Azure OpenAI to work properly.
   * [Security Guidelines](#security-guidelines)
 * [Resources](#resources)
 
+## Important Security Notice
+
+This template, the application code and configuration it contains, has been built to showcase Microsoft Azure specific services and tools. We strongly advise our customers not to make this code part of their production environments without implementing or enabling additional security features.
+
+For a more comprehensive list of best practices and security recommendations for Intelligent Applications, [visit our official documentation](https://github.com/Azure-Samples/azd-template-artifacts#link).
+
 ## Features
 
+This project framework provides the following features:
+
 * A .NET Blazor app that uses the [Azure.AI.OpenAI](https://www.nuget.org/packages/Azure.AI.OpenAI/) package to generate responses to user messages.
-* [Bicep files](https://docs.microsoft.com/azure/azure-resource-manager/bicep/) for provisioning Azure resources, including Azure OpenAI, Azure Container Apps, Azure Container Registry, Azure Log Analytics, and RBAC roles.
-* Support for using [local LLMs](/docs/local_ollama.md) during development.
+* [Bicep files](https://docs.microsoft.com/azure/azure-resource-manager/bicep/) for provisioning Azure resources, including Azure OpenAI, Azure Container Apps, Azure Container Registry, and RBAC roles.
+* Support for running the app locally during development while connected to the provisioned Azure resources.
 
 ![Screenshot of the chat app](docs/screenshot_chatapp.png)
 
@@ -128,7 +136,7 @@ azd pipeline config
 
 ## Local development
 
-In order to run this app locally, you need to have an Azure OpenAI account deployed by running `azd up`. The `azd` template adds the required output variables to your dotnet user secrets.
+In order to run this app locally, you'll first need to have deployed the template using the steps outlined in the previous sections. The `azd` template adds the required output variables to your dotnet user secrets so you can develop locally.
 
 Use the `dotnet run` command to start the app locally:
 
