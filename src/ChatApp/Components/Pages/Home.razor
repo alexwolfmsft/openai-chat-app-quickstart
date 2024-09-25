@@ -36,7 +36,7 @@
                             <MudCardHeader Class="system-message">
                             <CardHeaderContent>
                                 <MudIcon Style="margin-bottom: -4px" Icon="@Icons.Material.Filled.Computer" Title="Favorite" />
-                                    <MudText Style="display: inline" Typo="Typo.h6">AI</MudText>
+                                    <MudText Style="display: inline" Typo="Typo.h6">AI Assistant</MudText>
                                 </CardHeaderContent>
                             </MudCardHeader>
                             <MudCardContent>
@@ -52,7 +52,7 @@
 }
 @if (!String.IsNullOrEmpty(error))
 {
-    <MudAlert Severity="Severity.Error" Variant="MudBlazor.Variant.Filled">@error</MudAlert><MudText>Please try again</MudText>
+    <MudAlert Severity="Severity.Error" Variant="MudBlazor.Variant.Filled">@error</MudAlert>
 }
 @if (isLoading)
 {
@@ -60,7 +60,7 @@
 }
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-    <MudTextField @bind-Value="model.UserMessage" Label="Enter your message" Variant="MudBlazor.Variant.Text"></MudTextField>
+    <MudTextField @ref="chatInput" @bind-Value="model.UserMessage" Label="Enter your message" Required Variant="MudBlazor.Variant.Text"></MudTextField>
     <br />
     <MudButton Size="Size.Large" Style="my-8" ButtonType="ButtonType.Submit" Variant="MudBlazor.Variant.Filled" Color="Color.Primary" Class="ml-auto">Send</MudButton>
 </EditForm>
@@ -72,6 +72,7 @@
 
     public List<ChatMessage> messages = new();
     public string error = "";
+    private MudTextField<string> chatInput;
 
     public bool isLoading = false;
 
@@ -109,6 +110,11 @@
         }
 
         isLoading = false;
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await chatInput.FocusAsync();
     }
 
     AIChatForm model = new AIChatForm();
