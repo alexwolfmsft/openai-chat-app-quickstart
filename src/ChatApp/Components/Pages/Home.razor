@@ -51,7 +51,11 @@
 }
 @if (!String.IsNullOrEmpty(error))
 {
-    <MudAlert Severity="Severity.Error" Variant="MudBlazor.Variant.Filled">@error</MudAlert>
+    <MudAlert Severity="Severity.Error" Variant="MudBlazor.Variant.Filled">@error</MudAlert><MudText>Please try again</MudText>
+}
+@if (isLoading)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
 }
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -67,6 +71,7 @@
     AzureOpenAIClient azureClient;
     public List<ChatMessage> messages = new();
     public string error = "";
+    public bool isLoading = false;
 
     protected override Task OnInitializedAsync()
     {
@@ -80,6 +85,7 @@
 
     private async Task OnValidSubmit(EditContext context)
     {
+        isLoading = true;
         ChatClient chatClient = azureClient.GetChatClient(modelName);
 
         messages.Add(new UserChatMessage(model.UserMessage));
@@ -93,6 +99,8 @@
         {
             error = ex.Message;
         }
+
+        isLoading = false;
     }
 
     AIChatForm model = new AIChatForm();
