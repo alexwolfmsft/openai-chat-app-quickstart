@@ -169,6 +169,7 @@ output AZURE_LOCATION string = location
 output AZURE_OPENAI_CHATGPT_DEPLOYMENT string = openAiDeploymentName
 output AZURE_OPENAI_API_VERSION string = openAiApiVersion
 output AZURE_OPENAI_ENDPOINT string = createAzureOpenAi ? openAi.outputs.endpoint : openAiEndpoint
+output AZURE_CLIENT_ID string = aca.outputs.SERVICE_ACA_IDENTITY_PRINCIPAL_ID
 
 output SERVICE_ACA_IDENTITY_PRINCIPAL_ID string = aca.outputs.SERVICE_ACA_IDENTITY_PRINCIPAL_ID
 output SERVICE_ACA_NAME string = aca.outputs.SERVICE_ACA_NAME

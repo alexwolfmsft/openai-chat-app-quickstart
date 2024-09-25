@@ -4,6 +4,7 @@
 @using Azure.Identity
 @using OpenAI.Chat
 @using System.ComponentModel.DataAnnotations
+@inject IConfiguration config
 
 <PageTitle>Chat</PageTitle>
 
@@ -65,16 +66,23 @@
 </EditForm>
 
 @code {
-    string endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT");
-    string clientID = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
-    string modelName = Environment.GetEnvironmentVariable("AZURE_OPENAI_CHATGPT_DEPLOYMENT");
-    AzureOpenAIClient azureClient;
+    string endpoint = "";
+    string clientID = "";
+    string modelName = "";
+
     public List<ChatMessage> messages = new();
     public string error = "";
+
     public bool isLoading = false;
+
+    AzureOpenAIClient azureClient;
 
     protected override Task OnInitializedAsync()
     {
+        endpoint = config.GetValue<string>("AZURE_OPENAI_ENDPOINT");
+        clientID = config.GetValue<string>("AZURE_CLIENT_ID");
+        modelName = config.GetValue<string>("AZURE_OPENAI_CHATGPT_DEPLOYMENT");
+
         azureClient = new(new Uri(endpoint), new DefaultAzureCredential(new DefaultAzureCredentialOptions()
         {
             ManagedIdentityClientId = clientID
