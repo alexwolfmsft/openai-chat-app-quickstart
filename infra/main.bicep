@@ -33,7 +33,7 @@ param openAiResourceGroupName string = ''
     type: 'location'
   }
 })
-param openAiResourceLocation string
+param openAiResourceLocation string = 'eastus'
 param openAiSkuName string = ''
 param openAiApiVersion string = '' // Used by the SDK in the app code
 param disableKeyBasedAuth bool = true
